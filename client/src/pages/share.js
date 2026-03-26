@@ -34,31 +34,63 @@ export default function ShareLocation() {
     }
   };
 
-  const startTracking = (routeId) => {
-    socket.connect();
-    if ("geolocation" in navigator) {
-      setIsTracking(true);
-      localStorage.setItem('is_tracking', 'true');
-      localStorage.setItem('active_route_id', routeId);
-      
-      watchId.current = navigator.geolocation.watchPosition(
-        (position) => {
-          const data = {
-            routeId: routeId,
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          socket.emit('update_location', data);
-          console.log("📍 Broadcasting Route:", data.routeId);
-        },
-        (error) => {
-          console.error("GPS Error:", error);
-          stopTracking();
-        },
-        { enableHighAccuracy: true, maximumAge: 0 }
-      );
-    }
-  };
+  const startTracking = async (routeId) => {
+  if (!socket.connected) socket.connect();
+
+  if ("geolocation" in navigator) {
+    setIsTracking(true);
+    localStorage.setItem('is_tracking', 'true');
+    localStorage.setItem('active_route_id', routeId);
+
+    // 1. Wake Lock Logic (with Auto-Reacquire)
+    let wakeLock = null;
+    const requestWakeLock = async () => {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+          console.log('✅ Wake Lock is active');
+          
+          // यदि किसी वजह से लॉक छूट जाए (जैसे टैब स्विच), तो दोबारा मांगें
+          wakeLock.addEventListener('release', () => {
+            console.log('Wake Lock was released');
+          });
+        }
+      } catch (err) {
+        console.error(`WakeLock Error: ${err.message}`);
+      }
+    };
+
+    // पहली बार मांगें
+    await requestWakeLock();
+
+    // जब यूजर मिनिमाइज़ करके वापस आए, तो दोबारा लॉक मांगें
+    const handleVisibilityChange = async () => {
+      if (wakeLock !== null && document.visibilityState === 'visible') {
+        await requestWakeLock();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // 2. Geolocation Logic
+    watchId.current = navigator.geolocation.watchPosition(
+      (position) => {
+        const data = {
+          routeId: routeId,
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        socket.emit('update_location', data);
+        console.log("📍 Broadcasting Route:", data.routeId);
+      },
+      (error) => {
+        console.error("GPS Error:", error);
+        stopTracking();
+      },
+      // Settings: timeout जोड़ना ज़रूरी है ताकि GPS 'Stuck' न हो
+      { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
+    );
+  }
+};
 
   const stopTracking = () => {
     if (watchId.current !== null) {
