@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, ArrowRight, Bus, XCircle, Share2 } from 'lucide-react'; // Share2 आइकॉन जोड़ा
+import { Search, ArrowRight, Bus, XCircle, Share2, Home } from 'lucide-react'; // Share2 आइकॉन जोड़ा
 import Link from 'next/link';
 import socket from '../utils/socket';
 import { BUS_ROUTES } from '../utils/routes';
@@ -65,17 +65,27 @@ export default function SearchBus() {
   return (
     <div className="min-h-screen bg-gray-50 p-6 pb-32 font-sans">
       <div className="max-w-md mx-auto">
+        {/* 🏠 Home Button */}
+<div className="absolute top-0 right-0 z-50">
+  <Link href="/">
+    <button className="bg-white mt-2 mr-2 p-3 rounded-2xl shadow-md text-stone-400  border-2 border-transparent hover:border-slate-400 transition-all active:scale-90 flex items-center justify-center">
+      <Home size={20} />
+      <span className="ml-2 font-black text-[10px] uppercase tracking-wider hidden sm:block">Home</span>
+    </button>
+  </Link>
+</div>
+
         <header className="text-center mb-8">
-          <h1 className="text-4xl font-black text-blue-600 tracking-tighter italic">GovBus Live</h1>
-          <p className="text-gray-400 text-[10px] font-bold mt-1 uppercase tracking-[0.3em]">Nagpur Transport Division</p>
+          <h1 className="text-4xl font-black text-stone-400 tracking-tighter italic">GovBus Live</h1>
+          <p className="text-gray-400 text-[10px] font-bold mt-1 uppercase tracking-[0.3em]">Vidharbha Transport Division</p>
         </header>
 
         {/* 🔘 Navigation Button to Share Page */}
         <div className="mb-6">
           <Link href="/share">
-            <button className="w-full flex items-center justify-center space-x-3 bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-lg shadow-blue-200 active:scale-95 transition-all">
+            <button className="w-full flex items-center justify-center space-x-3 bg-mist-400 text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-lg shadow-blue-200 active:scale-95 transition-all">
               <Share2 size={20} />
-              <span>I'm on a Bus (Share)</span>
+              <span>Want to help (Share)</span>
             </button>
           </Link>
         </div>
@@ -98,7 +108,7 @@ export default function SearchBus() {
               <Link key={bus.routeId} href={`/track?route=${bus.routeId}`}>
                 <div className="flex items-center justify-between p-5 bg-white rounded-[2rem] border-2 border-blue-50 shadow-md hover:border-blue-400 transition-all cursor-pointer active:scale-95">
                   <div className="flex items-center space-x-4">
-                    <div className="bg-blue-600 p-4 rounded-2xl text-white shadow-lg shadow-blue-100">
+                    <div className="bg-mist-400 p-4 rounded-2xl text-white shadow-lg shadow-blue-100">
                       <Bus size={24} />
                     </div>
                     <div>
@@ -124,18 +134,18 @@ export default function SearchBus() {
 
         {/* 🚨 Floating Stop Sharing Bar */}
         {isUserSharing && (
-          <div className="fixed bottom-8 left-1/2 -translate-x-1/2 w-[92%] max-w-sm bg-red-600 text-white p-4 rounded-[2.5rem] shadow-2xl flex items-center justify-between z-[2000] border-4 border-white animate-in slide-in-from-bottom duration-700">
+          <div className="fixed bottom-8 left-1/2 -translate-x-1/2 w-[92%] max-w-sm bg-mist-400 text-white p-4 rounded-[2.5rem] shadow-2xl flex items-center justify-between z-[2000] border-4 border-transparent hover:border-indigo-400 animate-in slide-in-from-bottom duration-700">
             <div className="flex items-center space-x-3 px-2">
               <div className="h-2.5 w-2.5 bg-white rounded-full animate-ping"></div>
               <div>
-                <p className="text-[8px] font-black uppercase opacity-70 tracking-widest leading-none mb-1">Broadcasting</p>
+                <p className="text-[8px] uppercase opacity-70 tracking-widest leading-none mb-1">Broadcasting</p>
                 <p className="text-xs font-black truncate max-w-[130px]">{userRouteId}</p>
               </div>
             </div>
             {/* ✅ Stop Button */}
             <button 
               onClick={handleStopSharing}
-              className="bg-white text-red-600 px-5 py-2.5 rounded-2xl flex items-center space-x-2 transition-all active:scale-90 font-black text-[10px] uppercase shadow-lg shadow-red-900/20"
+              className="bg-white text-red-600 px-5 py-2.5 rounded-2xl flex items-center space-x-2 transition-all active:scale-90 font-black text-[10px] uppercase shadow-lg shadow-red-900/20 border-2 border-transparent hover:border-red-600"
             >
               <XCircle size={14} />
               <span>Stop Sharing</span>

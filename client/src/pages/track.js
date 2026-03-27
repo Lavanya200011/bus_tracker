@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import socket from '../utils/socket';
+import {Home} from 'lucide-react'; // Share2 आइकॉन जोड़ा
+import Link from 'next/link';
 
 const Map = dynamic(() => import('../components/Map'), { 
     ssr: false,
@@ -48,7 +50,7 @@ export default function TrackBus() {
     <div className="h-screen flex flex-col overflow-hidden font-sans">
       <div className="p-4 bg-white border-b flex justify-between items-center shadow-sm z-10">
         <div>
-          <h1 className="text-xl font-bold text-blue-600 uppercase tracking-tight">
+          <h1 className="text-xl font-bold text-stone-400 uppercase italic tracking-tight">
             {route ? `Route: ${route}` : 'Loading Route...'}
           </h1>
           <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em]">Live Tracker</p>
@@ -78,6 +80,15 @@ export default function TrackBus() {
                     <p className="text-xs text-gray-400 font-bold">Bus Status</p>
                     <p className="font-bold text-gray-800">Tracking Active</p>
                 </div>
+                {/* 🏠 Home Button */}
+<div className="absolute top-0 right-0 z-50 mt-3 mr-2">
+  <Link href="/">
+    <button className="bg-slate-600 mt-2 mr-2 p-3 rounded-2xl shadow-md text-white  border-2 border-transparent hover:border-slate-400 transition-all active:scale-90 flex items-center justify-center">
+      <Home size={20} />
+      <span className="ml-2 font-black text-[10px] uppercase tracking-wider hidden sm:block">Exit</span>
+    </button>
+  </Link>
+</div>
             </div>
         </div>
       )}
