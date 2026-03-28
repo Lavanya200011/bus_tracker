@@ -65,22 +65,22 @@ export default function SearchBus() {
   return (
     <div className="min-h-screen bg-gray-50 p-6 pb-32 font-sans">
       <div className="max-w-md mx-auto">
-        {/* 🏠 Home Button */}
-<div className="absolute top-0 right-0 z-50">
-  <Link href="/">
-    <button className="bg-white mt-2 mr-2 p-3 rounded-2xl shadow-md text-stone-400  border-2 border-transparent hover:border-slate-400 transition-all active:scale-90 flex items-center justify-center">
-      <Home size={20} />
-      <span className="ml-2 font-black text-[10px] uppercase tracking-wider hidden sm:block">Home</span>
-    </button>
-  </Link>
-</div>
-
-        <header className="text-center mb-8">
-          <h1 className="text-4xl font-black text-stone-400 tracking-tighter italic">GovBus Live</h1>
-          <p className="text-gray-400 text-[10px] font-bold mt-1 uppercase tracking-[0.3em]">Vidharbha Transport Division</p>
+        <header className="flex justify-between items-center mb-8">
+          <div className="text-left">
+            <h1 className="text-4xl font-black text-stone-400 tracking-tighter italic">GovBus Live</h1>
+            <p className="text-gray-400 text-[10px] font-bold mt-1 uppercase tracking-[0.3em]">Vidharbha Transport Division</p>
+          </div>
+          <div>
+            <Link href="/">
+              <button className="bg-white p-3 rounded-2xl shadow-md text-stone-400 border-2 border-transparent hover:border-slate-400 transition-all active:scale-90 flex items-center justify-center">
+                <Home size={20} />
+                <span className="ml-2 font-black text-[10px] uppercase tracking-wider hidden sm:block">Home</span>
+              </button>
+            </Link>
+          </div>        
         </header>
 
-        {/* 🔘 Navigation Button to Share Page */}
+        {/* 🔘 Navigation Button to Home Page */}
         <div className="mb-6">
           <Link href="/share">
             <button className="w-full flex items-center justify-center space-x-3 bg-mist-400 text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-lg shadow-blue-200 active:scale-95 transition-all">

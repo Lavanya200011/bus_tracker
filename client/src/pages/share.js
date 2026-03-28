@@ -80,21 +80,23 @@ export default function ShareLocation() {
           <h2 className="text-3xl font-extrabold text-stone-400 tracking-tighter italic">Share Journey</h2>
           <p className="text-gray-500 text-sm">Help others track this bus.</p>
         </div>
-        <Link href="/search">
+        <Link href="/search" class="mt-3">
           <button className="p-3 bg-gray-100 text-gray-600 rounded-2xl hover:bg-blue-100 hover:border-blue-600 transition-all active:scale-90 shadow-sm border-2 border-gray-200">
             <Search size={24} />
           </button>
         </Link>
-      </div>
-
-       {/* 🏠 Home Button */}
-<div className="absolute top-0 right-0 z-50">
-  <Link href="/">
+          {/* 🏠 Home Button */}
+        <Link href="/">
     <button className="bg-white mt-2 mr-2 p-3 rounded-2xl shadow-md text-stone-400  border-2 border-transparent hover:border-slate-400 transition-all active:scale-90 flex items-center justify-center">
       <Home size={20} />
       <span className="ml-2 font-black text-[10px] uppercase tracking-wider hidden sm:block">Home</span>
     </button>
   </Link>
+      </div>
+
+       
+<div className="absolute top-0 right-0 z-50">
+  
 </div>
       
       <div className="space-y-4 mb-8 text-left">

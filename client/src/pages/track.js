@@ -49,17 +49,27 @@ export default function TrackBus() {
   return (
     <div className="h-screen flex flex-col overflow-hidden font-sans">
       <div className="p-4 bg-white border-b flex justify-between items-center shadow-sm z-10">
-        <div>
-          <h1 className="text-xl font-bold text-stone-400 uppercase italic tracking-tight">
-            {route ? `Route: ${route}` : 'Loading Route...'}
-          </h1>
-          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em]">Live Tracker</p>
-        </div>
-        <div className="flex items-center space-x-2 bg-gray-50 px-3 py-1 rounded-full border">
+        <div className="flex items-center space-x-4">
+          <div>
+            <h1 className="text-xl font-bold text-stone-400 uppercase italic tracking-tight">
+              {route ? `Route: ${route}` : 'Loading Route...'}
+            </h1>
+            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em]">Live Tracker</p>
+          </div>
+          <div className="flex items-center space-x-2 bg-gray-50 px-3 py-1 rounded-full border">
             <span className={`h-2.5 w-2.5 rounded-full ${busLocation ? 'bg-green-500 animate-pulse' : 'bg-gray-300'}`}></span>
             <span className="text-xs font-bold text-gray-600 italic">
-                {busLocation ? 'LIVE' : 'SIGNAL SEARCHING'}
+              {busLocation ? 'LIVE' : 'SIGNAL SEARCHING'}
             </span>
+          </div>
+        </div>
+        <div>
+          <Link href="/">
+            <button className="bg-slate-600 p-3 rounded-2xl shadow-md text-white border-2 border-transparent hover:border-slate-400 transition-all active:scale-90 flex items-center justify-center">
+              <Home size={20} />
+              <span className="ml-2 font-black text-[10px] uppercase tracking-wider hidden sm:block">Home</span>
+            </button>
+          </Link>
         </div>
       </div>
       
