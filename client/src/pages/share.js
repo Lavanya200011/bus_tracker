@@ -7,7 +7,7 @@ import { BUS_ROUTES } from '../utils/routes';
 export default function ShareLocation() {
   const [isTracking, setIsTracking] = useState(false);
   const [selectedRouteId, setSelectedRouteId] = useState('');
-  const [duration, setDuration] = useState(30); // Default 30 minutes
+  const [duration, setDuration] = useState(1); // Default 30 minutes
   const watchId = useRef(null);
 
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function ShareLocation() {
               Sharing Duration
             </label>
             <div className="grid grid-cols-3 gap-3">
-              {[30, 60, 480].map((mins) => (
+              {[1, 60, 480].map((mins) => (
                 <button
                   key={mins}
                   onClick={() => setDuration(mins)}
